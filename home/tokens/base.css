@@ -1,4 +1,0 @@
-/* Global text setting: every Archivo run sits at 85% width unless it is a headline (78%) or the wordmark (100%).
-   Plex Mono has no width axis and is unaffected. */
-html{font-stretch:var(--stretch-text)}
-button,input,select,textarea{font-family:inherit;font-stretch:inherit}
