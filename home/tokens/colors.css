@@ -1,0 +1,71 @@
+:root{
+  /* ground + ink — warm near-neutrals, never pure white */
+  --rf-bone:#EFEAE1;
+  --rf-plate:#F7F4EE;
+  --rf-rule:#C9C2B6;
+  --rf-grey:#7A746A;
+  --rf-slate:#4A463F;
+  --rf-ink:#1F1D1A;
+  --rf-graphite:#22211F;
+  --rf-graphite-deep:#1B1A18;
+  --rf-graphite-raised:#2B2A27;
+  --rf-graphite-rule:#3E3C37;
+  --rf-graphite-rule-soft:#302E2A;
+  --rf-mist:#B5B0A6;
+  --rf-mist-dim:#837F76;
+  --rf-bone-dim:#9A968C;
+  --rf-bone-warm:#D6D1C7;
+  --rf-bone-dark-fg:#E7E3DA;
+  --rf-hairline-warm:#E2DBCE;
+
+  /* the one accent */
+  --rf-signal:#C4381F;
+  --rf-signal-tint:#E0674A;
+  --rf-signal-on-dark:#D9553B;
+  --rf-signal-wash:#F3D5CE;
+
+  /* data palette — light ground */
+  --rf-data-signal:#C4381F;
+  --rf-data-teal:#2F5D62;
+  --rf-data-ochre:#8A6A2B;
+  --rf-data-steel:#4A5A6E;
+  --rf-data-umber:#6B5340;
+  --rf-data-moss:#3E6B4B;
+
+  /* data palette — graphite ground */
+  --rf-data-signal-dark:#E0674A;
+  --rf-data-teal-dark:#6E9E9A;
+  --rf-data-ochre-dark:#C9A227;
+  --rf-data-steel-dark:#8FB3C9;
+  --rf-data-umber-dark:#B9AE9C;
+  --rf-data-moss-dark:#A8C0A0;
+
+  /* status — exactly three, no others exist */
+  --rf-state-ontrack:#A8C0A0;
+  --rf-state-watch:#C9A227;
+  --rf-state-act:#E0674A;
+
+  /* semantic aliases — light (document) environment */
+  --surface-page:var(--rf-bone);
+  --surface-card:var(--rf-plate);
+  --surface-inset:var(--rf-bone);
+  --border-hairline:var(--rf-rule);
+  --border-structural:var(--rf-ink);
+  --text-heading:var(--rf-ink);
+  --text-body:var(--rf-slate);
+  --text-label:var(--rf-grey);
+  --text-accent:var(--rf-signal);
+  --mark-signal:var(--rf-signal);
+}
+[data-rf-env="graphite"]{
+  --surface-page:var(--rf-graphite);
+  --surface-card:var(--rf-graphite-deep);
+  --surface-inset:var(--rf-graphite-raised);
+  --border-hairline:var(--rf-graphite-rule);
+  --border-structural:var(--rf-graphite-rule);
+  --text-heading:var(--rf-bone-dark-fg);
+  --text-body:var(--rf-mist);
+  --text-label:var(--rf-mist-dim);
+  --text-accent:var(--rf-signal-tint);
+  --mark-signal:var(--rf-signal);
+}

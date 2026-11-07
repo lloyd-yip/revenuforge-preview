@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1B1A18">
+<meta name="robots" content="noindex">
+<title>RevenuForge Teardown Booking</title>
+<!--
+  BOOKING PAGE (mockup) — free AI Revenue Teardown.
+  Job: get a qualified founder through the Part 1 survey and onto the calendar.
+  Survey: GHL "RF Teardown Application (Part 1)" VnvaQ08t3NQpXvhWvXaa (turn-away rules). On submit, the script
+  at the bottom swaps the Revenue Teardown calendar (DHpjYys3JMuhxUhUBwxC) into the same box with
+  name/email/phone prefilled. Spec: funnel/booking-survey.md; rebuild steps: funnel/README.md.
+  Look: same tokens as mockup/thank-you (Graphite, Archivo condensed, vermilion). All rules scoped under .rfb
+  so the CSS can paste into a GHL custom-code element.
+  Copy: approved by Lloyd 2026-11-07.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+.rfb{
+  --page:#1B1A18; --card:#22211F; --raised:#2B2A27; --rule:#3E3C37; --rule-soft:#302E2A;
+  --heading:#E7E3DA; --body:#B5B0A6; --label:#9A968C; --signal:#D9553B;
+  --sans:Archivo,"Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --max:1180px; --gutter:clamp(16px,4vw,56px); --ease-out:cubic-bezier(0.16,1,0.3,1);
+  margin:0;min-height:100vh;background:var(--page);color:var(--heading);font-family:var(--sans);font-stretch:85%;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.rfb *,.rfb *::before,.rfb *::after{box-sizing:border-box}
+:where(.rfb) :where(p,h1,h2,h3,ul,ol){margin:0}
+:where(.rfb) :where(ul,ol){padding:0;list-style:none}
+.rfb ::selection{background:var(--signal);color:var(--heading)}
+.rfb-wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+.rfb-eb{font:500 12px/1.2 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--label)}
+.rfb-eb.sig{color:var(--signal);text-wrap:balance}
+
+.rfb-bar{position:sticky;top:0;z-index:30;background:rgba(27,26,24,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule-soft)}
+.rfb-bar .rfb-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px}
+.rfb-wm{font:600 15px/1 var(--sans);font-stretch:100%;letter-spacing:.13em;text-transform:uppercase;color:var(--heading)}
+.rfb-wm span{font-weight:400;color:var(--signal)}
+
+.rfb-hero{position:relative;overflow:hidden;padding-block:clamp(40px,5.5vw,80px) clamp(56px,7vw,96px)}
+.rfb-hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 45% at 30% 0%,rgba(217,85,59,.16),transparent 70%)}
+.rfb-hero-bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(231,227,218,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(231,227,218,.04) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%)}
+.rfb-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:clamp(32px,5vw,72px);align-items:start}
+.rfb-h1{margin-top:18px;font-size:clamp(42px,5.6vw,82px);font-stretch:78%;font-weight:800;letter-spacing:-.02em;line-height:.93;text-wrap:balance}
+.rfb-h1 em{font-style:normal;color:var(--signal)}
+.rfb-sub{margin-top:22px;font-size:clamp(18px,1.6vw,22px);line-height:1.45;font-weight:500;color:var(--body);max-width:30em;text-wrap:pretty}
+.rfb-get{margin-top:clamp(28px,3.5vw,44px);display:flex;flex-direction:column;gap:12px;max-width:34em}
+.rfb-get li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;align-items:start;font-size:clamp(16px,1.25vw,18px);line-height:1.5;font-weight:500;color:var(--body)}
+.rfb-get b{color:var(--heading);font-weight:600}
+.rfb-get .n{width:34px;height:34px;border-radius:50%;border:1px solid var(--rule);display:grid;place-items:center;font:500 12px/1 var(--mono);color:var(--heading)}
+.rfb-get li:first-child .n{background:var(--signal);border-color:var(--signal)}
+.rfb-facts{margin-top:clamp(24px,3vw,36px);display:flex;flex-wrap:wrap;gap:8px}
+.rfb-facts span{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--heading);border:1px solid var(--rule);border-radius:999px;padding:9px 14px}
+
+.rfb-form{position:sticky;top:84px;background:var(--card);border:1px solid rgba(217,85,59,.55);border-radius:16px;padding:clamp(20px,2.4vw,30px);box-shadow:0 0 0 1px rgba(217,85,59,.18),0 50px 110px -40px rgba(0,0,0,.8)}
+.rfb-form h2{margin-top:0;font-size:clamp(26px,2.4vw,34px);font-stretch:78%;font-weight:800;letter-spacing:-.015em;line-height:1;text-wrap:balance}
+.rfb-form p{margin-top:10px;font-size:15px;line-height:1.5;color:var(--label);font-weight:500}
+.rfb-frame{margin-top:14px;border-radius:12px;overflow:hidden}
+.rfb-frame{position:relative}
+.rfb-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:12px;background:var(--card);font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--label);min-height:320px}
+.rfb-spin{width:16px;height:16px;border-radius:50%;border:2px solid var(--rule);border-top-color:var(--signal);animation:rfbspin .8s linear infinite}
+.rfb-loading[hidden]{display:none}
+@keyframes rfbspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.rfb-spin{animation:none}}
+.rfb-frame iframe{display:block;width:100%;min-height:0;border:0;color-scheme:normal}
+
+.rfb-sec{padding-block:clamp(56px,7vw,104px);border-top:1px solid var(--rule-soft)}
+.rfb-h2{margin-top:18px;font-size:clamp(34px,4.2vw,60px);font-stretch:78%;font-weight:800;letter-spacing:-.02em;line-height:.95;text-wrap:balance;max-width:16em}
+.rfb-kpis{position:relative;margin-top:clamp(28px,3.5vw,48px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--card);border:1px solid var(--rule);border-radius:18px;overflow:hidden;isolation:isolate}
+.rfb-kpis::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 120% at 0% 0%,rgba(217,85,59,.12),transparent 60%)}
+.rfb-kpi{padding:clamp(22px,2.6vw,36px) clamp(18px,2.2vw,30px);border-left:1px solid var(--rule-soft)}
+.rfb-kpi:first-child{border-left:0}
+.rfb-kpi .k{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
+.rfb-kpi .v{margin-top:18px;display:flex;align-items:baseline;gap:10px;font-size:clamp(44px,5vw,72px);font-stretch:78%;font-weight:800;letter-spacing:-.025em;line-height:.9;color:var(--heading)}
+.rfb-kpi .v i{font-style:normal;font-size:.36em;font-weight:700;transform:translateY(-.6em)}
+.rfb-kpi .v i.up{color:#4CB782}
+.rfb-kpi .v i.down{color:#E5484D}
+.rfb-kpi .v i.unit{color:var(--label);font-size:.3em;transform:none}
+.rfb-kpi .c{margin-top:14px;font-size:15px;line-height:1.45;color:var(--body);font-weight:500}
+.rfb-note{margin-top:20px;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:var(--body);font-weight:500;max-width:40em}
+.rfb-keep{display:flex;gap:20px;align-items:flex-start;max-width:46em}
+.rfb-keep .mark{flex:none;width:48px;height:48px;border-radius:12px;background:var(--raised);border:1px solid var(--rule);display:grid;place-items:center}
+.rfb-keep p{margin-top:12px;font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:var(--body);font-weight:500}
+.rfb-foot{border-top:1px solid var(--rule-soft);padding-block:28px}
+.rfb-foot p{font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+
+@media (max-width:960px){
+  .rfb-grid{grid-template-columns:1fr}
+  .rfb-form{position:static}
+  .rfb-hero{padding-block:28px 48px}
+  .rfb-facts{margin-top:18px}
+  .rfb-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rfb-kpi:nth-child(3){border-left:0}
+  .rfb-kpi:nth-child(n+3){border-top:1px solid var(--rule-soft)}
+}
+</style>
+</head>
+<body class="rfb">
+
+<header class="rfb-bar"><div class="rfb-wrap">
+  <span class="rfb-wm">Revenu<span>Forge</span></span>
+  <span class="rfb-eb">Free · 60 minutes</span>
+</div></header>
+
+<main>
+<section class="rfb-hero" aria-labelledby="rfb-h1">
+  <div class="rfb-hero-bg"></div>
+  <div class="rfb-wrap rfb-grid">
+    <div>
+      <p class="rfb-eb sig">Book your free AI Revenue Teardown call</p>
+      <h1 class="rfb-h1" id="rfb-h1">See exactly where AI would <em>add revenue</em> to your business.</h1>
+      <div class="rfb-facts"><span>Free</span><span>60 minutes</span><span>On Zoom</span><span>No pitch</span></div>
+    </div>
+
+    <aside class="rfb-form" aria-labelledby="rfb-form-h">
+      <h2 id="rfb-form-h">Tell us about your business, then book your call.</h2>
+      <p id="rfb-form-sub">Takes about 2 minutes.</p>
+      <div class="rfb-frame" id="rfb-frame">
+        <!-- sandbox without allow-top-navigation: stops GHL's redirect from taking over the whole page.
+             The script below swaps the calendar into this same box instead. -->
+        <div style="min-height:420px;border:1px dashed var(--rule);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center">
+          <span class="rfb-eb">Preview</span>
+          <p style="margin:0;color:var(--body);font-size:16px;max-width:22em">The live GHL survey loads here. When a qualified visitor finishes it, the calendar swaps into this same box.</p>
+        </div>
+        <div class="rfb-loading" id="rfb-loading" hidden><span class="rfb-spin" aria-hidden="true"></span>Finding open times…</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+
+<section class="rfb-sec" aria-labelledby="rfb-num-h">
+  <div class="rfb-wrap">
+    <span class="rfb-eb">Our own numbers</span>
+    <h2 class="rfb-h2" id="rfb-num-h">We built every one of these on our own company first.</h2>
+    <div class="rfb-kpis">
+      <div class="rfb-kpi"><span class="k">Close rate</span><div class="v">+10%<i class="up">▲</i></div><p class="c">More of your calls closing.</p></div>
+      <div class="rfb-kpi"><span class="k">Leads</span><div class="v">2×<i class="up">▲</i></div><p class="c">Double your leads.</p></div>
+      <div class="rfb-kpi"><span class="k">Marketing cost</span><div class="v">−33%<i class="down">▼</i></div><p class="c">A third less spent to get them.</p></div>
+      <div class="rfb-kpi"><span class="k">Time back</span><div class="v">15<i class="unit">hrs/wk</i></div><p class="c">Of manual work, gone.</p></div>
+    </div>
+    <p class="rfb-note">On the call, we show you where the same numbers are hiding in your business.</p>
+  </div>
+</section>
+
+<section class="rfb-sec" aria-labelledby="rfb-keep-h">
+  <div class="rfb-wrap rfb-keep">
+    <span class="mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9553B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.6"/></svg></span>
+    <div>
+      <span class="rfb-eb">You keep the value</span>
+      <h2 class="rfb-h2" id="rfb-keep-h">The audit is yours, even if we never work together.</h2>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="rfb-foot"><div class="rfb-wrap"><p>RevenuForge · AI Revenue Teardown</p></div></footer>
+</body>
+</html>

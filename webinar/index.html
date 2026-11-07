@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1B1A18">
+<title>RevenuForge Webinar Registration</title>
+<!--
+  WEBINAR REGISTRATION PAGE (mockup, built section by section).
+  Brief: .impeccable/surfaces/webinar-reg.md. Look: mockup/claude-design/home-approved-2026-11-06.html
+  (its "Operator" web kit + strands hero are reused here). Structure reference: Quantum Scaling reg pages.
+  GHL: every rule is scoped under .rfw so the CSS can be pasted into a GHL custom-code element
+  without touching GHL's own styles. Sections so far: countdown bar, hero.
+  PLACEHOLDERS: webinar date (data-start on .rfw-count), Lloyd's photo (.rfw-host-ph), VSL video,
+  register button target (opens the GHL form once wired).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+.rfw{
+  --page:#1B1A18; --card:#22211F; --raised:#2B2A27; --rule:#3E3C37; --rule-soft:#302E2A;
+  --heading:#E7E3DA; --body:#B5B0A6; --label:#9A968C; --signal:#D9553B; --signal-deep:#C4381F;
+  --btn:#E7E3DA; --btn-fg:#1B1A18;
+  --sans:Archivo,"Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --max:1360px; --gutter:clamp(20px,4vw,56px);
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  margin:0;background:var(--page);color:var(--heading);font-family:var(--sans);font-stretch:85%;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.rfw *,.rfw *::before,.rfw *::after{box-sizing:border-box}
+.rfw p,.rfw h1,.rfw h2{margin:0}
+.rfw a{color:inherit;text-decoration:none}
+.rfw ::selection{background:var(--signal);color:var(--heading)}
+.rfw :focus-visible{outline:2px solid var(--heading);outline-offset:3px}
+.rfw-wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+.rfw-eb{font:500 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--label)}
+.rfw-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* countdown bar */
+.rfw-count{position:sticky;top:0;z-index:30;background:rgba(27,26,24,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule-soft)}
+.rfw-count .rfw-wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:64px;flex-wrap:wrap;padding-block:10px}
+.rfw-wm{font:600 15px/1 var(--sans);font-stretch:100%;letter-spacing:.13em;text-transform:uppercase;color:var(--heading)}
+.rfw-wm span{font-weight:400;color:var(--signal)}
+.rfw-timer{display:flex;align-items:center;gap:18px}
+.rfw-live{display:inline-flex;align-items:center;gap:10px}
+.rfw-live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 0 rgba(217,85,59,.6);animation:rfw-ping 2s var(--ease-out) infinite}
+@keyframes rfw-ping{to{box-shadow:0 0 0 10px rgba(217,85,59,0)}}
+.rfw-units{display:flex;gap:6px}
+.rfw-unit{display:flex;align-items:baseline;gap:3px;background:var(--card);border:1px solid var(--rule-soft);border-radius:6px;padding:7px 9px}
+.rfw-unit b{font:500 17px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--heading);min-width:2ch;text-align:right}
+.rfw-unit i{font:500 11px/1 var(--mono);font-style:normal;color:var(--label);text-transform:uppercase}
+.rfw-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--btn);color:var(--btn-fg)!important;border:0;cursor:pointer;font:600 17px/1 var(--sans);font-stretch:85%;padding:20px 30px;border-radius:6px;transition:transform 180ms cubic-bezier(.2,0,.2,1),background-color 180ms cubic-bezier(.2,0,.2,1);touch-action:manipulation}
+.rfw-btn:hover{transform:translateY(-2px);background:#F3EFE7}
+.rfw-btn:active{transform:translateY(0) scale(.98)}
+.rfw-btn.sm{padding:12px 18px;font-size:15px}
+.rfw-btn .ar{transition:transform 180ms cubic-bezier(.2,0,.2,1)}
+.rfw-btn:hover .ar{transform:translateX(3px)}
+
+/* hero */
+.rfw-hero{position:relative;overflow:hidden;padding-block:clamp(28px,3.4vw,48px) clamp(56px,7vw,104px)}
+.rfw-hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 45% 55% at 82% 62%,rgba(217,85,59,.14),transparent 70%)}
+.rfw-hero-bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(231,227,218,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(231,227,218,.045) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 70% 80% at 70% 40%,#000 20%,transparent 80%);mask-image:radial-gradient(ellipse 70% 80% at 70% 40%,#000 20%,transparent 80%)}
+.rfw-hero-fx{position:absolute;inset:0 0 auto 0;height:62%;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 42%,rgba(0,0,0,.3) 64%,#000 84%);mask-image:linear-gradient(90deg,transparent 0%,transparent 42%,rgba(0,0,0,.3) 64%,#000 84%)}
+.rfw-vsl-fx{position:absolute;inset:0;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%);mask-image:linear-gradient(90deg,transparent,#000 30%)}
+.rfw-vsl-fx canvas{position:absolute;inset:0;display:block}
+.rfw-hero .rfw-wrap{position:relative}
+.rfw-toprow{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+.rfw-toprow .rfw-host{padding-top:0;border-top:0}
+.rfw-tag{display:inline-flex;align-items:center;gap:12px}
+.rfw-tag .rfw-eb{color:var(--heading)}
+.rfw-tag .dot{width:6px;height:6px;background:var(--signal)}
+.rfw-h1{font-size:clamp(40px,5.6vw,82px);font-stretch:78%;font-weight:800;letter-spacing:-.02em;line-height:.92;color:var(--heading);max-width:17em;text-wrap:balance}
+.rfw-h1 .hl{color:var(--signal)}
+.rfw-word{display:inline-block}
+.rfw-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,500px);gap:clamp(32px,5vw,96px);align-items:start;margin-top:clamp(28px,3vw,44px)}
+.rfw-copy{display:flex;flex-direction:column;gap:28px}
+.rfw-side{display:flex;flex-direction:column;gap:20px}
+.rfw-side .rfw-act{align-items:flex-start}
+.rfw-lede{font-size:clamp(19px,1.6vw,23px);line-height:1.45;font-weight:500;letter-spacing:-.005em;color:var(--body);max-width:30em;text-wrap:pretty}
+.rfw-lede b{color:var(--heading);font-weight:600}
+.rfw-act{flex:none;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.rfw-act small{font:500 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+.rfw-host{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid var(--rule)}
+.rfw-host-ph{flex:none;width:44px;height:44px;border-radius:50%;background:var(--raised);border:1px solid var(--rule);display:grid;place-items:center;font:500 14px/1 var(--mono);color:var(--body);overflow:hidden}
+.rfw-host-ph img{width:100%;height:100%;object-fit:cover}
+.rfw-host p{font-size:15px;line-height:1.35;color:var(--body);font-weight:500}
+.rfw-host p b{display:block;color:var(--heading);font-weight:600;font-size:16px}
+
+/* registration form (inline + popup). GHL: replace with the native GHL form, styled by these rules */
+.rfw-form{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:clamp(20px,2vw,26px);display:flex;flex-direction:column;gap:14px;box-shadow:0 40px 90px -30px rgba(0,0,0,.65)}
+.rfw-form h2{font-size:clamp(24px,2vw,30px);font-stretch:78%;font-weight:800;letter-spacing:-.015em;line-height:1;color:var(--heading)}
+.rfw-form .sub{font-size:15px;line-height:1.4;color:var(--body);font-weight:500;margin-top:-6px}
+.rfw-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rfw-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.rfw-field.full{grid-column:1/-1}
+.rfw-field label{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+.rfw-field input{width:100%;height:46px;background:var(--page);border:1px solid var(--rule);border-radius:6px;padding:0 14px;font:500 16px/1 var(--sans);font-stretch:90%;color:var(--heading);transition:border-color 150ms ease}
+.rfw-field input::placeholder{color:#6F6B63}
+.rfw-field input:hover{border-color:#57534C}
+.rfw-field input:focus{outline:none;border-color:var(--heading)}
+.rfw-field input[aria-invalid="true"]{border-color:var(--signal)}
+.rfw-form .rfw-btn{width:100%;margin-top:4px}
+.rfw-fine{font:500 11px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--label);text-align:center}
+.rfw-done{display:none;flex-direction:column;gap:10px;padding-block:24px}
+.rfw-form.is-done .rfw-done{display:flex}
+.rfw-form.is-done > :not(.rfw-done){display:none}
+.rfw-done b{font-size:26px;font-stretch:78%;font-weight:800;color:var(--heading)}
+
+/* popup */
+.rfw-pop{border:0;padding:0;background:transparent;width:min(520px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:visible;color:var(--heading)}
+.rfw-pop::backdrop{background:rgba(12,11,10,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.rfw-pop[open]{animation:rfw-pop-in 280ms var(--ease-out)}
+.rfw-pop[open]::backdrop{animation:rfw-fade 280ms ease-out}
+@keyframes rfw-pop-in{from{opacity:0;transform:translateY(12px) scale(.97)}}
+@keyframes rfw-fade{from{opacity:0}}
+.rfw-pop .rfw-form{position:relative}
+.rfw-x{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;background:none;border:1px solid transparent;color:var(--body);font:400 22px/1 var(--sans);cursor:pointer;transition:background-color 150ms ease,color 150ms ease}
+.rfw-x:hover{background:var(--raised);color:var(--heading)}
+
+/* what you'll learn */
+.rfw-sec{position:relative;padding-block:clamp(72px,9vw,140px);border-top:1px solid var(--rule-soft)}
+.rfw-sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:clamp(36px,4.5vw,64px)}
+.rfw-h2{font-size:clamp(36px,4.6vw,72px);font-stretch:78%;font-weight:800;letter-spacing:-.02em;line-height:.95;color:var(--heading);max-width:12em;text-wrap:balance}
+.rfw-learn{border-top:1px solid var(--rule)}
+.rfw-li{display:grid;grid-template-columns:72px minmax(0,1.1fr) minmax(0,1fr) 240px;gap:clamp(20px,3vw,48px);align-items:baseline;padding-block:clamp(24px,2.6vw,36px);border-bottom:1px solid var(--rule)}
+.rfw-li .n{font:500 13px/1 var(--mono);letter-spacing:.16em;color:var(--label)}
+.rfw-li .area{display:block;font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--signal);margin-bottom:12px}
+.rfw-li h3{margin:0;font-size:clamp(24px,2.3vw,34px);font-stretch:78%;font-weight:800;letter-spacing:-.015em;line-height:1.02;color:var(--heading);text-wrap:balance}
+.rfw-li p{font-size:clamp(16px,1.2vw,18px);line-height:1.5;color:var(--body);font-weight:500;max-width:34em}
+.rfw-res{display:flex;flex-direction:column;align-items:flex-end;gap:8px;white-space:nowrap}
+.rfw-res span{font:500 13px/1 var(--mono);color:var(--heading);background:var(--raised);border:1px solid var(--rule);border-radius:999px;padding:8px 12px}
+.rfw-sec-cta{display:flex;justify-content:flex-start;margin-top:clamp(36px,4vw,56px)}
+
+
+/* VSL slot */
+.rfw-vsl{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--rule);box-shadow:0 40px 90px -30px rgba(0,0,0,.65)}
+.rfw-vsl-poster{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 30%,rgba(217,85,59,.22),transparent 70%),linear-gradient(180deg,#26241F,#1D1C19)}
+.rfw-vsl-poster::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(231,227,218,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(231,227,218,.04) 1px,transparent 1px);background-size:40px 40px}
+.rfw-vsl-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:none;border:0;cursor:pointer;color:var(--heading);width:100%}
+.rfw-vsl-play{z-index:1}
+.rfw-vsl-play .pb{width:68px;height:68px;border-radius:50%;background:var(--btn);display:grid;place-items:center;transition:transform 220ms var(--ease-out);box-shadow:0 0 0 10px rgba(231,227,218,.08)}
+.rfw-vsl-play .pb::before{content:"";margin-left:5px;border-style:solid;border-width:12px 0 12px 19px;border-color:transparent transparent transparent var(--btn-fg)}
+.rfw-vsl-play:hover .pb{transform:scale(1.06)}
+.rfw-vsl-play .rfw-eb{color:var(--heading)}
+.rfw-vsl-meta{position:absolute;left:18px;right:18px;bottom:16px;display:flex;justify-content:space-between;gap:12px}
+
+/* motion: headline word build + one reveal (blur to sharp, rise) */
+.js .rfw-rv{opacity:0;transform:translateY(18px);filter:blur(8px);transition:opacity 600ms var(--ease-out),transform 600ms var(--ease-out),filter 600ms var(--ease-out)}
+.js .rfw-rv.on{opacity:1;transform:none;filter:none}
+
+@media (max-width:960px){
+  .rfw-timer .rfw-eb{display:none}
+  .rfw-hero-grid{grid-template-columns:1fr;gap:32px}
+  .rfw-side{max-width:560px}
+  .rfw-li{grid-template-columns:48px minmax(0,1fr)}
+  .rfw-li p,.rfw-res{grid-column:2}
+  .rfw-res{flex-direction:row;flex-wrap:wrap;align-items:flex-start;white-space:normal}
+  .rfw-sec-head{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:600px){
+  .rfw-count .rfw-wrap{justify-content:center}
+  .rfw-count .rfw-wm{display:none}
+  .rfw-timer .rfw-eb{display:none}
+  .rfw-btn{width:100%}
+  .rfw-count .rfw-btn{width:auto;padding:10px 14px;font-size:14px}
+  .rfw-count .rfw-wrap{flex-wrap:nowrap;gap:10px}
+  .rfw-unit{padding:6px 7px}
+  .rfw-unit b{font-size:15px}
+  .rfw-act{align-items:stretch;width:100%}
+  .rfw-fields{grid-template-columns:1fr}
+  .rfw-li{grid-template-columns:1fr;gap:12px}
+  .rfw-li p,.rfw-res{grid-column:1}
+  .rfw-sec-cta .rfw-btn{width:100%}
+  .rfw-act small{text-align:center}
+  .rfw-vsl-play .pb{width:64px;height:64px}
+  .rfw-vsl-play .pb::before{border-width:11px 0 11px 17px}
+}
+@media (prefers-reduced-motion:reduce){
+  .rfw-live::before{animation:none}
+  .js .rfw-rv{opacity:1;transform:none;filter:none;transition:none}
+  .rfw-pop[open],.rfw-pop[open]::backdrop{animation:none}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="rfw">
+
+<!-- COUNTDOWN BAR — set data-start to the webinar start (ISO, with offset) -->
+<div class="rfw-count" data-start="">
+  <div class="rfw-wrap">
+    <span class="rfw-wm" translate="no">Revenu<span>Forge</span></span>
+    <div class="rfw-timer" role="timer" aria-label="Time until the masterclass starts">
+      <span class="rfw-eb rfw-live">Masterclass starts in</span>
+      <div class="rfw-units" aria-hidden="true">
+        <span class="rfw-unit"><b data-u="d">00</b><i>d</i></span>
+        <span class="rfw-unit"><b data-u="h">00</b><i>h</i></span>
+        <span class="rfw-unit"><b data-u="m">00</b><i>m</i></span>
+        <span class="rfw-unit"><b data-u="s">00</b><i>s</i></span>
+      </div>
+    </div>
+    <button class="rfw-btn sm" type="button" data-pop>Save my seat</button>
+  </div>
+</div>
+
+<main>
+<!-- HERO -->
+<section class="rfw-hero" aria-labelledby="rfw-h1">
+  <div class="rfw-hero-bg"></div>
+  <div class="rfw-wrap">
+    <div class="rfw-toprow">
+      <div class="rfw-tag"><span class="dot"></span><span class="rfw-eb">Free live masterclass · 60 minutes</span></div>
+      <div class="rfw-host">
+        <!-- PHOTO: replace the initials with <img src="lloyd.jpg" alt="Lloyd Yip"> -->
+        <span class="rfw-host-ph" aria-hidden="true">LY</span>
+        <p><b>Hosted by Lloyd Yip</b>CEO, RevenuForge</p>
+      </div>
+    </div>
+    <h1 class="rfw-h1" id="rfw-h1"><span class="rfw-word">How</span> <span class="rfw-word">to</span> <span class="rfw-word">build</span> <span class="rfw-word">a</span> <span class="rfw-word">fleet</span> <span class="rfw-word">of</span> <span class="rfw-word">AI</span> <span class="rfw-word">agents</span> <span class="rfw-word">that</span> <span class="rfw-word hl">2x</span> <span class="rfw-word">your</span> <span class="rfw-word">demand</span> <span class="rfw-word">and</span> <span class="rfw-word">halve</span> <span class="rfw-word">your</span> <span class="rfw-word">payroll</span></h1>
+
+    <div class="rfw-hero-grid">
+      <div class="rfw-copy rfw-rv">
+        <p class="rfw-lede">Learn how to <b>raise your close rate, double your leads and cut your costs</b> with AI agents, and watch ours do it live.</p>
+      </div>
+
+      <div class="rfw-side">
+      <!-- VSL SLOT: drop the pre-webinar video in here (Pre Webby VSL script). -->
+      <div class="rfw-vsl rfw-rv">
+        <div class="rfw-vsl-poster"></div>
+        <div class="rfw-vsl-fx" data-strands><canvas></canvas></div>
+        <button class="rfw-vsl-play" type="button" aria-label="Play the masterclass preview video">
+          <span class="pb" aria-hidden="true"></span>
+          <span class="rfw-eb">Watch this first</span>
+        </button>
+      </div>
+      <div class="rfw-act rfw-rv">
+        <!-- GHL: native button, action = open the registration popup -->
+        <button class="rfw-btn" type="button" data-pop>Save my free seat <span class="ar" aria-hidden="true">→</span></button>
+        <small>Free · Live · 60 minutes</small>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN — content from the cal copy + Pre Webby VSL script -->
+<section class="rfw-sec" aria-labelledby="rfw-learn-h">
+  <div class="rfw-wrap">
+    <div class="rfw-sec-head">
+      <h2 class="rfw-h2" id="rfw-learn-h">What you’ll learn in this masterclass</h2>
+    </div>
+    <ol class="rfw-learn" style="list-style:none;margin:0;padding:0">
+      <li class="rfw-li"><span class="n">01</span><div><span class="area">Marketing</span><h3>Become the name everyone in your market knows</h3></div><p>An AI agent that replaces a world-class content team, so you’re everywhere your buyers look.</p><div class="rfw-res"><span>Brand recognition + booked calls from content</span></div></li>
+      <li class="rfw-li"><span class="n">02</span><div><span class="area">Lead gen</span><h3>Multiply your lead flow and fill your calendar</h3></div><p>An AI SDR that works every lead, every day, and gets more of them to show up.</p><div class="rfw-res"><span>2× lead volume</span><span>+15% show rate</span></div></li>
+      <li class="rfw-li"><span class="n">03</span><div><span class="area">Sales</span><h3>Lift your close rate</h3></div><p>An AI sales manager that coaches every rep to close like your best one.</p><div class="rfw-res"><span>+10–15 pts close rate</span></div></li>
+      <li class="rfw-li"><span class="n">04</span><div><span class="area">Operations</span><h3>Cut operating costs and get your team’s time back</h3></div><p>AI that takes over admin, reporting and finance.</p><div class="rfw-res"><span>−20% operating costs</span></div></li>
+      <li class="rfw-li"><span class="n">05</span><div><span class="area">Your business</span><h3>Know exactly which agents to build first</h3></div><p>And have them live in 30 to 60 days, no technical team needed.</p><div class="rfw-res"></div></li>
+    </ol>
+    <div class="rfw-sec-cta"><button class="rfw-btn" type="button" data-pop>Save my free seat <span class="ar" aria-hidden="true">→</span></button></div>
+  </div>
+</section>
+</main>
+
+<!-- REGISTRATION POPUP — opened by every "Save my seat" button -->
+<dialog class="rfw-pop" aria-labelledby="rfw-pop-h">
+  <form class="rfw-form" novalidate>
+    <button class="rfw-x" type="button" aria-label="Close" data-close>×</button>
+    <h2 id="rfw-pop-h">Save your free seat</h2>
+    <p class="sub">How to build a fleet of AI agents that 2x your demand and halve your payroll.</p>
+    <div class="rfw-fields">
+      <div class="rfw-field"><label for="pop-first">First name</label><input id="pop-first" name="first_name" autocomplete="given-name" required placeholder="Jane"></div>
+      <div class="rfw-field"><label for="pop-last">Last name</label><input id="pop-last" name="last_name" autocomplete="family-name" required placeholder="Smith"></div>
+      <div class="rfw-field full"><label for="pop-email">Work email</label><input id="pop-email" name="email" type="email" autocomplete="email" spellcheck="false" required placeholder="jane@company.com"></div>
+      <div class="rfw-field full"><label for="pop-phone">Phone</label><input id="pop-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+1 555 010 0100"></div>
+    </div>
+    <button class="rfw-btn" type="submit">Save my free seat <span class="ar" aria-hidden="true">→</span></button>
+    <p class="rfw-fine">Free · Live · 60 minutes</p>
+    <div class="rfw-done" role="status"><b>You’re in.</b><p>Check your email for the calendar invite and the joining link.</p></div>
+  </form>
+</dialog>
+
+<script>
+/* RevenuForge "strands" hero animation, from the approved Claude Design web kit (web/strands.js). */
+(function () {
+  function RFStrands(host, opt) {
+    opt = opt || {};
+    var cv = host.querySelector('canvas'), ctx = cv.getContext('2d');
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var C = { hd: '#E7E3DA', sg: '#D9553B' };
+    var N = opt.count || 64, FX = opt.focusX || 0.86, LOOP = 12, W = 0, H = 0, dpr = 1;
+    function size() { dpr = Math.min(devicePixelRatio || 1, 2); W = host.clientWidth; H = host.clientHeight; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px'; }
+    new ResizeObserver(size).observe(host); size();
+    var lines = [];
+    for (var i = 0; i < N; i++) lines.push({ y0: (i + .5) / N, ph: Math.random() * 6.28, f1: .8 + Math.random() * 1.6, f2: 2 + Math.random() * 3, sp: .25 + Math.random() * .5, sig: i === Math.floor(N * .36), dots: [Math.random(), Math.random()] });
+    function sm(t) { return t * t * (3 - 2 * t); }
+    function order(t) { return t < 2 ? 0 : t < 5.5 ? sm((t - 2) / 3.5) : t < 9.5 ? 1 : 1 - sm((t - 9.5) / 2.5); }
+    function yAt(L, u, o, time) {
+      var fy = H * .5, amp = H * (.16 * (1 - o) + .012);
+      var n = Math.sin(u * 6.28 * L.f1 + L.ph + time * L.sp) * .6 + Math.sin(u * 6.28 * L.f2 - L.ph * 1.7 + time * L.sp * 1.6) * .4;
+      var base = H * (.08 + .84 * L.y0), pull = o * sm(Math.min(1, u / FX)), after = u > FX ? o : 0;
+      return base * (1 - pull) + fy * pull + n * amp * (1 - after * .95);
+    }
+    var t0 = performance.now(), visible = true;
+    new IntersectionObserver(function (e) { visible = e[0].isIntersecting; if (visible && !reduce) requestAnimationFrame(frame); }).observe(host);
+    function frame(now) {
+      var time = (now - t0) / 1000, t = reduce ? 7 : time % LOOP, o = order(t);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      lines.forEach(function (L) {
+        ctx.beginPath();
+        for (var s = 0; s <= 96; s++) { var u = s / 96, y = yAt(L, u, o, reduce ? 0 : time); s ? ctx.lineTo(u * W, y) : ctx.moveTo(u * W, y); }
+        ctx.strokeStyle = L.sig ? C.sg : C.hd; ctx.globalAlpha = L.sig ? .55 + .35 * o : .08 + .18 * o; ctx.lineWidth = L.sig ? 1.8 : 1.1; ctx.stroke();
+        if (!reduce) L.dots.forEach(function (d0, j) {
+          var u = (d0 + time * (.06 + .05 * o) * (1 + j * .3)) % 1;
+          ctx.globalAlpha = (L.sig ? .9 : .35 + .4 * o) * Math.sin(u * Math.PI); ctx.fillStyle = L.sig ? C.sg : C.hd;
+          ctx.beginPath(); ctx.arc(u * W, yAt(L, u, o, time), L.sig ? 3.2 : 2.2, 0, 6.283); ctx.fill();
+        });
+      });
+      var fx = W * FX, fy = H * .5, pulse = .5 + .5 * Math.sin(time * 2.2);
+      ctx.globalAlpha = .12 * o + .05; ctx.fillStyle = C.sg; ctx.beginPath(); ctx.arc(fx, fy, 26 + 22 * o + 6 * pulse * o, 0, 6.283); ctx.fill();
+      ctx.globalAlpha = .5 + .5 * o; ctx.strokeStyle = C.hd; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(fx, fy, 14 + 4 * o, 0, 6.283); ctx.stroke();
+      ctx.globalAlpha = 1; ctx.fillStyle = C.sg; ctx.beginPath(); ctx.arc(fx, fy, 4 + 3 * o, 0, 6.283); ctx.fill();
+      if (!reduce && visible) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  document.querySelectorAll('[data-strands]').forEach(function (el) { RFStrands(el, { focusX: 0.5, count: 48 }); });
+})();
+
+/* headline word build + reveals + countdown */
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) document.querySelectorAll('.rfw-word').forEach(function (w, i) {
+    w.style.cssText += ';opacity:0;transform:translateY(14px) scale(.96);filter:blur(10px)';
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      w.style.transition = 'opacity .5s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1),filter .5s cubic-bezier(.16,1,.3,1)';
+      w.style.transitionDelay = i * 0.05 + 's';
+      w.style.opacity = 1; w.style.transform = 'none'; w.style.filter = 'none';
+    }); });
+  });
+  var rv = document.querySelectorAll('.rfw-rv');
+  setTimeout(function () { rv.forEach(function (el, i) { el.style.transitionDelay = i * 0.12 + 's'; el.classList.add('on'); }); }, reduce ? 0 : 650);
+
+  var bar = document.querySelector('.rfw-count');
+  // PLACEHOLDER start: three days from now until the real date is set in data-start.
+  var start = bar.dataset.start ? new Date(bar.dataset.start) : new Date(Date.now() + 3 * 864e5 + 5 * 36e5);
+  var el = {}; ['d', 'h', 'm', 's'].forEach(function (k) { el[k] = bar.querySelector('[data-u="' + k + '"]'); });
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var ms = Math.max(0, start - Date.now()), s = Math.floor(ms / 1000);
+    el.d.textContent = pad(Math.floor(s / 86400)); el.h.textContent = pad(Math.floor(s % 86400 / 3600));
+    el.m.textContent = pad(Math.floor(s % 3600 / 60)); el.s.textContent = pad(s % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // popup: every [data-pop] button opens the registration form
+  var pop = document.querySelector('.rfw-pop');
+  document.querySelectorAll('[data-pop]').forEach(function (b) {
+    b.addEventListener('click', function () { pop.showModal(); var f = pop.querySelector('input'); if (f) f.focus(); });
+  });
+  pop.querySelector('[data-close]').addEventListener('click', function () { pop.close(); });
+  pop.addEventListener('click', function (e) { if (e.target === pop) pop.close(); });
+
+  // MOCK submit: validates, then shows the success state. GHL's native form replaces this.
+  document.querySelectorAll('.rfw-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var first = null;
+      form.querySelectorAll('input').forEach(function (i) {
+        var ok = i.checkValidity() && i.value.trim() !== '';
+        i.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        if (!ok && !first) first = i;
+      });
+      if (first) { first.focus(); return; }
+      form.classList.add('is-done');
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1B1A18">
+<meta name="robots" content="noindex">
+<title>RevenuForge Booking Confirmed</title>
+<!--
+  POST-BOOKING THANK-YOU PAGE (mockup) — free AI Revenue Teardown, webinar path.
+  Job: lift show rate and prime the lead. Hero = Lloyd's locked ~2 min video
+  (Notion: "AI Revenue Teardown — Thank-You Page Video (Script, LOCKED)").
+  Look: mockup/claude-design/home-approved-2026-11-06.html + mockup/webinar-reg (Operator kit, strands).
+  GHL: every rule is scoped under .rft so the CSS pastes into a GHL custom-code element safely.
+
+  PLACEHOLDERS (swap when wiring into GHL):
+   - first name + appointment time + email: the script reads ?first_name=&start=&email= from the URL.
+     Lloyd approved passing the email in the URL (2026-11-06); it prefills the Step 3 prep survey so answers land on the booked contact.
+     In GHL, replace with the calendar's merge fields (e.g. {{contact.first_name}}, appointment start time).
+   - Video embed (.rft-vsl). Poster caption is from the script.
+   - "Add it manually" link is generated from the start time; it carries no Zoom link (copy says so).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+.rft{
+  --page:#1B1A18; --card:#22211F; --raised:#2B2A27; --rule:#3E3C37; --rule-soft:#302E2A;
+  --heading:#E7E3DA; --body:#B5B0A6; --label:#9A968C; --signal:#D9553B; --signal-deep:#C4381F;
+  --bone:#EFEBE3; --bone-rule:#D8D2C6; --ink:#1B1A18; --graphite:#5E5A52;
+  --btn:#E7E3DA; --btn-fg:#1B1A18;
+  --sans:Archivo,"Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --max:1120px; --gutter:clamp(16px,4vw,56px);
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  margin:0;background:var(--page);color:var(--heading);font-family:var(--sans);font-stretch:85%;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+.rft *,.rft *::before,.rft *::after{box-sizing:border-box}
+:where(.rft) :where(p,h1,h2,h3,h4,ul,ol){margin:0}
+:where(.rft) :where(ul,ol){padding:0;list-style:none}
+.rft a{color:inherit}
+.rft ::selection{background:var(--signal);color:var(--heading)}
+.rft :focus-visible{outline:2px solid var(--heading);outline-offset:3px}
+.rft-wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+.rft-eb{font:500 12px/1.2 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--label)}
+.rft-eb.sig{color:var(--signal)}
+
+/* top bar */
+.rft-bar{position:sticky;top:0;z-index:30;background:rgba(27,26,24,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule-soft)}
+.rft-bar .rft-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px}
+.rft-wm{font:600 15px/1 var(--sans);font-stretch:100%;letter-spacing:.13em;text-transform:uppercase;color:var(--heading)}
+.rft-wm span{font-weight:400;color:var(--signal)}
+.rft-booked{display:inline-flex;align-items:center;gap:10px;font:500 12px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--body);text-align:right}
+.rft-booked .ck{flex:none;width:20px;height:20px;border-radius:50%;background:var(--signal);display:grid;place-items:center}
+.rft-booked .ck svg{width:11px;height:11px}
+.rft-booked b{color:var(--heading);font-weight:500}
+
+/* hero */
+.rft-hero{position:relative;overflow:hidden;padding-block:clamp(44px,6vw,88px) clamp(56px,7vw,96px)}
+.rft-hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 45% at 50% 0%,rgba(217,85,59,.16),transparent 70%)}
+.rft-hero-bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(231,227,218,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(231,227,218,.04) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%)}
+.rft-hero .rft-wrap{position:relative}
+.rft-h1{font-size:clamp(44px,6.4vw,92px);font-stretch:78%;font-weight:800;letter-spacing:-.02em;line-height:.92;color:var(--heading);text-wrap:balance}
+.rft-h1 .nm{color:var(--signal)}
+.rft-when{margin-top:20px;font-size:clamp(19px,1.7vw,24px);line-height:1.4;font-weight:500;color:var(--body);max-width:30em;text-wrap:pretty}
+.rft-when b{color:var(--heading);font-weight:600}
+.rft-when b.yes{color:var(--signal)}
+.rft-invite-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:clamp(24px,4vw,56px);align-items:center}
+.rft-p b.yes{color:var(--signal)}
+.rft-help{margin-top:12px;font-size:15px;line-height:1.5;color:var(--label);font-weight:500}
+.rft-help a{color:var(--heading);text-decoration:underline;text-decoration-color:var(--signal);text-underline-offset:4px;text-decoration-thickness:1.5px}
+.rft-help a:hover{color:#fff}
+
+/* steps */
+.rft-step{position:relative;margin-top:clamp(36px,4.5vw,56px);background:var(--card);border:1px solid rgba(217,85,59,.55);border-radius:16px;padding:clamp(22px,2.6vw,36px);box-shadow:0 0 0 1px rgba(217,85,59,.18),0 40px 90px -40px rgba(0,0,0,.7)}
+.rft-step-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.rft-num{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--rule);display:grid;place-items:center;font:500 13px/1 var(--mono);color:var(--heading)}
+.rft-step .rft-num{background:var(--signal);border-color:var(--signal)}
+.rft-h3{font-size:clamp(26px,2.6vw,38px);font-stretch:78%;font-weight:800;letter-spacing:-.015em;line-height:1;color:var(--heading)}
+.rft-p{font-size:clamp(16px,1.25vw,18px);line-height:1.55;font-weight:500;color:var(--body);text-wrap:pretty}
+.rft-p b{color:var(--heading);font-weight:600}
+
+/* mock calendar invite (generic, not a real product UI) */
+.rft-inv{background:var(--bone);color:var(--ink);border-radius:12px;padding:20px 20px 18px;box-shadow:0 30px 70px -30px rgba(0,0,0,.8);transform:rotate(-1.2deg)}
+.rft-inv-top{display:flex;align-items:center;gap:10px;font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--graphite)}
+.rft-inv-cal{flex:none;width:34px;height:36px;border-radius:6px;background:#fff;border:1px solid var(--bone-rule);overflow:hidden;display:flex;flex-direction:column;text-align:center}
+.rft-inv-cal i{font:600 8px/12px var(--mono);font-style:normal;background:var(--signal);color:#fff;letter-spacing:.08em}
+.rft-inv-cal b{font:700 15px/22px var(--sans);color:var(--ink)}
+.rft-inv h4{margin:14px 0 4px;font-size:21px;font-stretch:85%;font-weight:700;letter-spacing:-.01em;line-height:1.15}
+.rft-inv .meta{font-size:14px;line-height:1.45;color:var(--graphite);font-weight:500}
+.rft-inv .zoom{margin-top:12px;display:flex;align-items:center;gap:8px;font:500 12px/1 var(--mono);color:var(--graphite)}
+.rft-inv .zoom::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--graphite)}
+.rft-rsvp{margin-top:16px;padding-top:14px;border-top:1px solid var(--bone-rule);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rft-rsvp span{font-size:14px;font-weight:600;margin-right:4px}
+.rft-rsvp em{font-style:normal;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;border:1px solid var(--bone-rule);color:var(--graphite)}
+.rft-rsvp em.yes{position:relative;background:var(--signal);border-color:var(--signal);color:#fff}
+.rft-rsvp em.yes::after{content:"";position:absolute;inset:-5px;border-radius:999px;border:2px solid var(--signal);opacity:0;animation:rft-ring 2.2s var(--ease-out) infinite}
+@keyframes rft-ring{0%{opacity:.8;transform:scale(.92)}70%,100%{opacity:0;transform:scale(1.18)}}
+.rft-inv-note{margin-top:14px;display:flex;align-items:center;gap:8px;font:500 11px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+
+/* step 2: sms */
+
+/* step 3: video */
+.rft-vsl-head{display:flex;align-items:center;gap:14px;margin:clamp(40px,5vw,64px) 0 18px}
+.rft-vsl{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--rule);box-shadow:0 50px 110px -40px rgba(0,0,0,.8)}
+.rft-vsl-poster{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 40%,rgba(217,85,59,.2),transparent 70%),linear-gradient(180deg,#26241F,#1D1C19)}
+.rft-vsl-fx{position:absolute;inset:0;pointer-events:none;opacity:.8}
+.rft-vsl-fx canvas{position:absolute;inset:0;display:block}
+.rft-vsl-play{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:none;border:0;cursor:pointer;color:var(--heading);width:100%;padding:24px}
+.rft-vsl-play .pb{width:76px;height:76px;border-radius:50%;background:var(--btn);display:grid;place-items:center;transition:transform 220ms var(--ease-out);box-shadow:0 0 0 12px rgba(231,227,218,.08)}
+.rft-vsl-play .pb::before{content:"";margin-left:6px;border-style:solid;border-width:13px 0 13px 21px;border-color:transparent transparent transparent var(--btn-fg)}
+.rft-vsl-play:hover .pb{transform:scale(1.06)}
+.rft-vsl-play .cap{font-size:clamp(22px,2.6vw,36px);font-stretch:78%;font-weight:800;letter-spacing:-.015em;line-height:1;text-align:center;text-wrap:balance}
+.rft-vsl-meta{position:absolute;left:20px;right:20px;bottom:16px;z-index:1;display:flex;justify-content:space-between;gap:12px;pointer-events:none}
+
+/* step 3: prep survey */
+.rft-prep-form .rft-p{max-width:40em;margin-bottom:18px}
+.rft-qf{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:clamp(20px,2.6vw,36px);box-shadow:0 50px 110px -40px rgba(0,0,0,.8)}
+.rft-qf-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+.rft-qf-count b{color:var(--heading);font-weight:500}
+.rft-qf-bar{margin-top:14px;height:3px;border-radius:3px;background:var(--rule);overflow:hidden}
+.rft-qf-bar i{display:block;height:100%;width:0;background:var(--signal);border-radius:3px;transition:width 360ms var(--ease-out)}
+.rft-qf-body{min-height:300px;padding-top:clamp(26px,3.4vw,40px)}
+.rft-qf-q{font-size:clamp(24px,2.4vw,34px);font-stretch:78%;font-weight:800;letter-spacing:-.015em;line-height:1.08;color:var(--heading);text-wrap:balance;max-width:22em}
+.rft-qf-hint{margin-top:10px;font-size:15px;color:var(--label);font-weight:500}
+.rft-qf-opts{margin-top:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.rft-qf-opt{display:flex;align-items:center;gap:12px;text-align:left;background:var(--raised);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;font:500 16px/1.3 var(--sans);font-stretch:85%;color:var(--heading);cursor:pointer;transition:border-color 120ms,background-color 120ms,transform 120ms}
+.rft-qf-opt:hover{border-color:#5a5750}
+.rft-qf-opt:active{transform:scale(.99)}
+.rft-qf-opt .k{flex:none;width:24px;height:24px;border-radius:6px;border:1px solid var(--rule);display:grid;place-items:center;font:500 11px/1 var(--mono);color:var(--label)}
+.rft-qf-opt[aria-pressed="true"]{border-color:var(--signal);background:rgba(217,85,59,.12)}
+.rft-qf-opt[aria-pressed="true"] .k{background:var(--signal);border-color:var(--signal);color:#fff}
+.rft-qf-in{margin-top:22px;width:100%;box-sizing:border-box;background:var(--raised);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;font:500 17px/1.4 var(--sans);font-stretch:85%;color:var(--heading);outline:none;resize:vertical}
+.rft-qf-in::placeholder{color:var(--label)}
+.rft-qf-in:focus{border-color:var(--signal)}
+.rft-qf-err{margin-top:10px;font-size:14px;color:var(--signal);font-weight:500}
+.rft-qf-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--rule-soft)}
+.rft-qf-actions{display:flex;gap:10px;align-items:center}
+.rft-qf-back{background:none;border:0;cursor:pointer;font:500 15px/1 var(--sans);font-stretch:85%;color:var(--label);padding:10px 4px}
+.rft-qf-back:hover{color:var(--heading)}
+.rft-qf-back[hidden]{display:inline-block;visibility:hidden}
+.rft-qf-next[hidden]{display:none}
+.rft-qf-next{display:inline-flex;align-items:center;gap:10px;background:var(--signal);color:#fff;border:0;border-radius:999px;cursor:pointer;font:600 16px/1 var(--sans);font-stretch:85%;padding:14px 22px;transition:transform 160ms var(--ease-out),opacity 160ms}
+.rft-qf-next:hover{transform:translateY(-1px)}
+.rft-qf-next:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.rft-qf-anim{animation:rft-qf-in 280ms var(--ease-out)}
+@keyframes rft-qf-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rft-qf-done{text-align:left}
+.rft-qf-done .ck{width:44px;height:44px;border-radius:50%;background:var(--signal);display:grid;place-items:center;margin-bottom:20px}
+.rft-qf-done .ck svg{width:22px;height:22px}
+.rft-qf-done .rft-p{margin-top:12px;max-width:34em}
+
+/* sections */
+.rft-sec{padding-block:clamp(56px,7vw,104px);border-top:1px solid var(--rule-soft)}
+.rft-h2{font-size:clamp(34px,4.2vw,60px);font-stretch:78%;font-weight:800;letter-spacing:-.02em;line-height:.95;color:var(--heading);text-wrap:balance;max-width:14em}
+.rft-next-head .rft-p{font-size:clamp(18px,1.5vw,21px)}
+.rft-tl{position:relative;margin-top:clamp(32px,4vw,56px);display:flex;flex-direction:column;gap:clamp(18px,2.4vw,28px);max-width:760px}
+.rft-tl::before{content:"";position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:linear-gradient(180deg,var(--signal),rgba(217,85,59,.25))}
+.rft-tl-item{position:relative;display:grid;grid-template-columns:40px minmax(0,1fr);gap:clamp(16px,2.6vw,32px);align-items:start}
+.rft-tl-n{position:relative;z-index:1;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--page);border:2px solid var(--signal);font:500 14px/1 var(--mono);color:var(--heading)}
+.rft-tl-item.now .rft-tl-n{background:var(--signal);color:#fff}
+.rft-tl-card{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:clamp(20px,2.4vw,30px);display:flex;flex-direction:column;gap:10px}
+.rft-tl-item.now .rft-tl-card{border-color:rgba(217,85,59,.55);box-shadow:0 0 0 1px rgba(217,85,59,.18)}
+.rft-tl-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.rft-tl-ic{width:40px;height:40px;border-radius:10px;background:var(--raised);border:1px solid var(--rule);display:grid;place-items:center;color:var(--signal)}
+.rft-tl-ic svg{width:20px;height:20px}
+.rft-tl-badge{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--signal);padding:7px 10px;border-radius:999px}
+.rft-tl-card h3{font-size:clamp(24px,2.2vw,32px);font-stretch:78%;font-weight:800;letter-spacing:-.015em;line-height:1;color:var(--heading)}
+.rft-tl-note{margin-top:22px;padding-left:calc(40px + clamp(16px,2.6vw,32px));font-size:15px;line-height:1.5;color:var(--label);font-weight:500}
+.rft-plans{border-top:1px solid var(--rule-soft);padding-block:clamp(28px,3.5vw,44px)}
+.rft-plans p{font-size:clamp(16px,1.25vw,18px);line-height:1.55;color:var(--body);font-weight:500;max-width:52em}
+.rft-plans b{color:var(--heading);font-weight:600}
+.rft-plans .warn{color:var(--heading)}
+.rft-end{padding-block:clamp(64px,8vw,120px);border-top:1px solid var(--rule-soft);position:relative;overflow:hidden}
+.rft-end::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 60% at 80% 100%,rgba(217,85,59,.14),transparent 70%)}
+.rft-end .rft-wrap{position:relative}
+.rft-check{margin-top:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px;max-width:640px}
+.rft-check li{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:18px 20px;font-size:clamp(16px,1.25vw,18px);line-height:1.5;color:var(--body);font-weight:500}
+.rft-check b{color:var(--heading);font-weight:600}
+.rft-check a{color:var(--heading);text-decoration:underline;text-decoration-color:var(--signal);text-underline-offset:4px;text-decoration-thickness:1.5px}
+.rft-check .bx{flex:none;width:22px;height:22px;margin-top:2px;border-radius:6px;border:2px solid var(--signal)}
+.rft-foot{border-top:1px solid var(--rule-soft);padding-block:28px}
+.rft-foot .rft-wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.rft-foot p{font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+
+/* motion */
+.js .rft-rv{opacity:0;transform:translateY(16px);filter:blur(8px);transition:opacity 600ms var(--ease-out),transform 600ms var(--ease-out),filter 600ms var(--ease-out)}
+.js .rft-rv.on{opacity:1;transform:none;filter:none}
+
+@media (max-width:900px){
+  .rft-invite-grid{grid-template-columns:1fr}
+  .rft-inv{max-width:420px}
+}
+@media (max-width:600px){
+  .rft-bar .rft-wm{display:none}
+  .rft-bar .rft-wrap{justify-content:center}
+  .rft-booked{text-align:left;letter-spacing:.08em}
+  .rft-qf-opts{grid-template-columns:1fr}
+  .rft-tl::before{left:15px}
+  .rft-tl-item{grid-template-columns:32px minmax(0,1fr);gap:14px}
+  .rft-tl-n{width:32px;height:32px;font-size:12px}
+  .rft-tl-note{padding-left:46px}
+  .rft-vsl{aspect-ratio:4/3}
+  .rft-vsl-play .pb{width:64px;height:64px}
+  .rft-vsl-play .pb::before{border-width:11px 0 11px 18px}
+  .rft-inv{transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .rft-rsvp em.yes::after{animation:none}
+  .rft-qf-anim{animation:none}
+  .rft-qf-bar i{transition:none}
+  .js .rft-rv{opacity:1;transform:none;filter:none;transition:none}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="rft">
+
+<!-- TOP BAR -->
+<div class="rft-bar">
+  <div class="rft-wrap">
+    <span class="rft-wm" translate="no">Revenu<span>Forge</span></span>
+    <p class="rft-booked">
+      <span class="ck" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>Booked<span data-when-short> · <b data-f="short">{{appointment time}}</b></span> · about an hour on Zoom</span>
+    </p>
+  </div>
+</div>
+
+<main>
+<!-- HERO + STEPS -->
+<section class="rft-hero" aria-labelledby="rft-h1">
+  <div class="rft-hero-bg"></div>
+  <div class="rft-wrap">
+    <p class="rft-eb sig rft-rv">AI Revenue Teardown · Confirmed</p>
+    <h1 class="rft-h1 rft-rv" id="rft-h1" style="margin-top:18px">You’re booked<span data-name-wrap>, <span class="nm" data-f="name">{{first_name}}</span></span>.</h1>
+    <p class="rft-when rft-rv" data-when-full>Your AI Revenue Teardown is <b data-f="long">{{appointment date and time}}</b>.</p>
+
+    <!-- STEP 1: accept the invite (the biggest show-rate lever) -->
+    <article class="rft-step rft-rv" aria-labelledby="s1">
+      <div class="rft-invite-grid">
+        <div>
+          <div class="rft-step-head"><span class="rft-num">1</span><span class="rft-eb sig">Do this now</span></div>
+          <h2 class="rft-h3" id="s1">Accept the calendar invite.</h2>
+          <p class="rft-p" style="margin-top:14px">Check your email for the Google Calendar invite we just sent and click <b class="yes">Yes</b>. It has your Zoom link.</p>
+          <p class="rft-help">Not there? Check spam, or <a href="#" data-gcal target="_blank" rel="noopener">add it manually</a>.</p>
+        </div>
+        <div class="rft-inv" aria-hidden="true">
+          <div class="rft-inv-top"><span class="rft-inv-cal"><i data-f="mon">NOV</i><b data-f="day">12</b></span>Invitation</div>
+          <h4>AI Revenue Teardown · RevenuForge</h4>
+          <p class="meta" data-f="long">{{appointment date and time}}</p>
+          <p class="zoom">Zoom link inside</p>
+          <div class="rft-rsvp"><span>Going?</span><em class="yes">Yes</em><em>No</em><em>Maybe</em></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- STEP 2: the video (hero content). Replace the poster/button with the video embed; captions are baked in. -->
+    <div class="rft-vsl-head rft-rv"><span class="rft-num">2</span><span class="rft-eb" style="color:var(--heading)">Watch this · 3 min</span></div>
+    <div class="rft-vsl rft-rv">
+      <div class="rft-vsl-poster"></div>
+      <div class="rft-vsl-fx" data-strands><canvas></canvas></div>
+      <button class="rft-vsl-play" type="button" aria-label="Play: before your teardown, watch this">
+        <span class="pb" aria-hidden="true"></span>
+        <span class="cap">Before your teardown — watch this.</span>
+      </button>
+      <div class="rft-vsl-meta"><span class="rft-eb">What to expect</span><span class="rft-eb">About 3 min</span></div>
+    </div>
+
+    <!-- STEP 3: post-booking prep form. Native one-question-at-a-time form (progress + auto-advance),
+         replacing the GHL survey embed, which can't do either. Answers save after every question to a
+         GHL Inbound Webhook (set data-webhook), whose workflow writes them onto the contact matched by email.
+         Same 23 questions + contact field keys as GHL survey "RF Teardown Prep (Part 2)". -->
+    <div class="rft-vsl-head rft-rv"><span class="rft-num">3</span><span class="rft-eb" style="color:var(--heading)">Help us prep your Teardown · 3–5 min</span></div>
+    <div class="rft-prep-form rft-rv" id="rft-prep">
+      <p class="rft-p">It takes 3–5 minutes, mostly tapping answers. “Not sure” is a fine answer, and the more you give us, the sharper your audit gets.</p>
+      <div class="rft-qf" data-qf>
+        <div class="rft-qf-top">
+          <span class="rft-qf-count" aria-live="polite"><b data-qf-n>1</b> of <span data-qf-total>23</span></span>
+          <span class="rft-qf-sec" data-qf-sec>Your business</span>
+        </div>
+        <div class="rft-qf-bar" aria-hidden="true"><i data-qf-fill></i></div>
+        <div class="rft-qf-body" data-qf-body></div>
+        <div class="rft-qf-foot">
+          <button type="button" class="rft-qf-back" data-qf-back>← Back</button>
+          <div class="rft-qf-actions">
+            <button type="button" class="rft-qf-next" data-qf-next>Next <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT HAPPENS NEXT: homepage's Diagnose → Build → Scale, as a vertical timeline (copy reused from the approved homepage) -->
+<section class="rft-sec" aria-labelledby="rft-next-h">
+  <div class="rft-wrap">
+    <div class="rft-next-head rft-rv">
+      <span class="rft-eb sig">What happens next</span>
+      <h2 class="rft-h2" id="rft-next-h" style="margin-top:18px">Find where AI moves the numbers. Build it. Repeat.</h2>
+      <p class="rft-p" style="margin-top:16px">Your Teardown is step one.</p>
+    </div>
+    <ol class="rft-tl">
+      <li class="rft-tl-item now rft-rv">
+        <span class="rft-tl-n">1</span>
+        <div class="rft-tl-card">
+          <div class="rft-tl-top"><span class="rft-tl-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span class="rft-tl-badge">You are here</span></div>
+          <h3>Diagnose</h3>
+          <p class="rft-p">We find where AI will move your leads, close rate and costs the most. That’s this call, and your prep answers make it sharper.</p>
+        </div>
+      </li>
+      <li class="rft-tl-item rft-rv">
+        <span class="rft-tl-n">2</span>
+        <div class="rft-tl-card">
+          <div class="rft-tl-top"><span class="rft-tl-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5l3 3M4 20l4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20z"/></svg></span></div>
+          <h3>Build</h3>
+          <p class="rft-p">We build the agents and automations that move those numbers, inside your tools.</p>
+        </div>
+      </li>
+      <li class="rft-tl-item rft-rv">
+        <span class="rft-tl-n">3</span>
+        <div class="rft-tl-card">
+          <div class="rft-tl-top"><span class="rft-tl-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5 4 4 7-7"/><path d="M15 9h5v5"/></svg></span></div>
+          <h3>Scale</h3>
+          <p class="rft-p">We measure, tune and expand them so the gains keep compounding.</p>
+        </div>
+      </li>
+    </ol>
+    <p class="rft-tl-note rft-rv">Steps 2 and 3 only happen if it’s a fit. The audit is yours either way.</p>
+  </div>
+</section>
+
+<!-- IF PLANS CHANGE: one row -->
+<section class="rft-plans" aria-label="If plans change">
+  <div class="rft-wrap">
+    <p><b>Can’t make it?</b> Reply to the invite email and we’ll move it. <span class="warn">Miss it without telling us and we can’t rebook you.</span> These slots go fast.</p>
+  </div>
+</section>
+
+<!-- CLOSING: two-item checklist -->
+<section class="rft-end" aria-labelledby="rft-end-h">
+  <div class="rft-wrap">
+    <span class="rft-eb sig">Before you go</span>
+    <h2 class="rft-h2" id="rft-end-h" style="margin-top:18px">Two things, then we’re set.</h2>
+    <ul class="rft-check">
+      <li><span class="bx" aria-hidden="true"></span><div><b>Accept the calendar invite.</b> Click Yes. That’s where your Zoom link is.</div></li>
+      <li><span class="bx" aria-hidden="true"></span><div><b>Finish your prep form.</b> <a href="#rft-prep">Jump back up to it</a>.</div></li>
+    </ul>
+    <p class="rft-p" style="margin-top:28px">See you on the call.</p>
+  </div>
+</section>
+</main>
+
+<footer class="rft-foot">
+  <div class="rft-wrap"><p translate="no">RevenuForge</p><p>Reply to your confirmation email with any questions</p></div>
+</footer>
+
+<script>
+/* RevenuForge "strands" animation, from the approved web kit (same as webinar-reg). */
+(function () {
+  function RFStrands(host, opt) {
+    opt = opt || {};
+    var cv = host.querySelector('canvas'), ctx = cv.getContext('2d');
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var C = { hd: '#E7E3DA', sg: '#D9553B' };
+    var N = opt.count || 64, FX = opt.focusX || 0.86, LOOP = 12, W = 0, H = 0, dpr = 1;
+    function size() { dpr = Math.min(devicePixelRatio || 1, 2); W = host.clientWidth; H = host.clientHeight; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px'; }
+    new ResizeObserver(size).observe(host); size();
+    var lines = [];
+    for (var i = 0; i < N; i++) lines.push({ y0: (i + .5) / N, ph: Math.random() * 6.28, f1: .8 + Math.random() * 1.6, f2: 2 + Math.random() * 3, sp: .25 + Math.random() * .5, sig: i === Math.floor(N * .36), dots: [Math.random(), Math.random()] });
+    function sm(t) { return t * t * (3 - 2 * t); }
+    function order(t) { return t < 2 ? 0 : t < 5.5 ? sm((t - 2) / 3.5) : t < 9.5 ? 1 : 1 - sm((t - 9.5) / 2.5); }
+    function yAt(L, u, o, time) {
+      var fy = H * .5, amp = H * (.16 * (1 - o) + .012);
+      var n = Math.sin(u * 6.28 * L.f1 + L.ph + time * L.sp) * .6 + Math.sin(u * 6.28 * L.f2 - L.ph * 1.7 + time * L.sp * 1.6) * .4;
+      var base = H * (.08 + .84 * L.y0), pull = o * sm(Math.min(1, u / FX)), after = u > FX ? o : 0;
+      return base * (1 - pull) + fy * pull + n * amp * (1 - after * .95);
+    }
+    var t0 = performance.now(), visible = true;
+    new IntersectionObserver(function (e) { visible = e[0].isIntersecting; if (visible && !reduce) requestAnimationFrame(frame); }).observe(host);
+    function frame(now) {
+      var time = (now - t0) / 1000, t = reduce ? 7 : time % LOOP, o = order(t);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      lines.forEach(function (L) {
+        ctx.beginPath();
+        for (var s = 0; s <= 96; s++) { var u = s / 96, y = yAt(L, u, o, reduce ? 0 : time); s ? ctx.lineTo(u * W, y) : ctx.moveTo(u * W, y); }
+        ctx.strokeStyle = L.sig ? C.sg : C.hd; ctx.globalAlpha = L.sig ? .55 + .35 * o : .06 + .14 * o; ctx.lineWidth = L.sig ? 1.8 : 1.1; ctx.stroke();
+        if (!reduce) L.dots.forEach(function (d0, j) {
+          var u = (d0 + time * (.06 + .05 * o) * (1 + j * .3)) % 1;
+          ctx.globalAlpha = (L.sig ? .9 : .3 + .35 * o) * Math.sin(u * Math.PI); ctx.fillStyle = L.sig ? C.sg : C.hd;
+          ctx.beginPath(); ctx.arc(u * W, yAt(L, u, o, time), L.sig ? 3.2 : 2.2, 0, 6.283); ctx.fill();
+        });
+      });
+      ctx.globalAlpha = 1;
+      if (!reduce && visible) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  document.querySelectorAll('[data-strands]').forEach(function (el) { RFStrands(el, { focusX: 0.5, count: 44 }); });
+})();
+
+/* Personalisation + links + reveals.
+   MOCKUP: reads ?first_name= and ?start= (ISO) from the URL; falls back to sample values so the page reads real.
+   GHL: replace the data-f text with the calendar merge fields and drop this block's sample fallback. */
+(function () {
+  var q = new URLSearchParams(location.search);
+  var name = q.get('first_name') || q.get('invitee_first_name') || 'Jordan';
+  var startRaw = q.get('start') || q.get('event_start_time');
+  // GHL's appointment merge field is human-readable ("Monday, November 9, 2026 9:00 AM"), not ISO: parse loosely.
+  function parseStart(s) {
+    var d = new Date(s);
+    if (isNaN(d)) d = new Date(s.replace(/^[A-Za-z]+,\s*/, '').replace(/\s+(AM|PM)$/i, ' $1'));
+    return d;
+  }
+  var start = startRaw ? parseStart(startRaw) : (function () { var d = new Date(Date.now() + 3 * 864e5); d.setHours(14, 0, 0, 0); return d; })();
+  var valid = !isNaN(start);
+
+  function set(k, v) { document.querySelectorAll('[data-f="' + k + '"]').forEach(function (el) { el.textContent = v; }); }
+  if (name) set('name', name); else document.querySelectorAll('[data-name-wrap]').forEach(function (el) { el.remove(); });
+
+  if (valid) {
+    var tz = new Intl.DateTimeFormat(undefined, { timeZoneName: 'short' }).formatToParts(start).find(function (p) { return p.type === 'timeZoneName'; });
+    var time = start.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+    set('long', start.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' }) + ' at ' + time + (tz ? ' ' + tz.value : ''));
+    set('short', start.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }) + ', ' + time);
+    set('mon', start.toLocaleDateString(undefined, { month: 'short' }).toUpperCase());
+    set('day', String(start.getDate()));
+    // "Add it manually": Google Calendar template link (1 hour). Carries no Zoom link by design.
+    var end = new Date(start.getTime() + 36e5);
+    var f = function (d) { return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); };
+    var g = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('AI Revenue Teardown · RevenuForge') +
+      '&dates=' + f(start) + '/' + f(end) + '&details=' + encodeURIComponent('Your Zoom link is in your confirmation email.');
+    document.querySelectorAll('[data-gcal]').forEach(function (a) { a.href = g; });
+  } else if (startRaw) {
+    // Unparseable but present: show GHL's text as-is rather than lose the time.
+    set('long', startRaw);
+    document.querySelectorAll('[data-when-short]').forEach(function (el) { el.remove(); });
+  } else {
+    document.querySelectorAll('[data-when-short]').forEach(function (el) { el.remove(); });
+    document.querySelectorAll('[data-when-full]').forEach(function (el) { el.textContent = 'Two quick things before we meet.'; });
+  }
+
+  // SMS confirm: sms: link with "YES" prefilled
+
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rv = document.querySelectorAll('.rft-rv');
+  if (reduce || !('IntersectionObserver' in window)) { rv.forEach(function (el) { el.classList.add('on'); }); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+  rv.forEach(function (el, i) { if (el.getBoundingClientRect().top < innerHeight) el.style.transitionDelay = Math.min(i, 5) * 0.09 + 's'; io.observe(el); });
+})();
+</script>
+<script>
+/* PREP FORM ENGINE. One question per screen, "N of total" + progress bar, single-choice auto-advances.
+   Saves the full answer set after every answer (idempotent: the workflow overwrites the same contact fields).
+   Option strings must match the GHL contact-field options exactly. */
+(function () {
+  var root = document.querySelector('[data-qf]'); if (!root) return;
+  var Q = [
+    {s:'Your business', k:'website', t:'url', q:'What’s your company website?', h:'We’ll read up on your business from there.', ph:'yourcompany.com'},
+    {s:'Your business', k:'years_in_business', t:'one', q:'How long have you been in business?', o:['Under 2 years','2–5','5–10','10+']},
+    {s:'Your business', k:'profit_trend', t:'one', q:'How is profit tracking against last year?', o:['Growing','Flat','Shrinking','Not sure']},
+
+    {s:'Sales', k:'sales_headcount', t:'one', q:'How many people are in sales?', o:['Founder sells','1–2','3–5','6–15','16+']},
+    {s:'Sales', k:'sales_cycle', t:'one', q:'How long from first call to signed deal?', o:['Under 2 weeks','2–4 weeks','1–3 months','3+ months','Not sure']},
+    {s:'Sales', k:'calls_to_close', t:'one', q:'How many calls does it take to close?', o:['One','Two','Three or more','Not sure']},
+    {s:'Sales', k:'show_rate', t:'one', q:'What’s your show rate on sales calls?', o:['Under 50%','50–70%','70–85%','Over 85%','Don’t track it']},
+    {s:'Sales', k:'close_rate', t:'one', q:'What’s your close rate?', o:['Under 10%','10–20%','20–35%','Over 35%','Don’t track it']},
+    {s:'Sales', k:'calls_recorded', t:'one', q:'Are your sales calls recorded?', o:['All of them','Some','No']},
+    {s:'Sales', k:'sales_pains', t:'many', none:'None of these', q:'Which of these happen in your sales process?', h:'Tick all that apply.', o:['Leads go cold before anyone follows up','Reps don’t follow up enough after the first call','Reps don’t prep before calls','The CRM is out of date because nobody updates it','Too many no-shows','Every rep sells differently','We don’t really know why deals are lost','Everything depends on me to close','Proposals take too long to go out','None of these']},
+
+    {s:'Leads', k:'lead_sources', t:'many', q:'Where do your leads come from?', h:'Tick all that apply.', o:['Referrals','Paid ads','Outbound','Organic content','Webinars/events','Partners','Other']},
+    {s:'Leads', k:'top_lead_source', t:'one', q:'Which one brings you the most qualified opportunities?', from:'lead_sources', o:['Referrals','Paid ads','Outbound','Organic content','Webinars/events','Partners','Other']},
+    {s:'Leads', k:'leads_per_month', t:'one', q:'How many new leads do you get a month?', o:['Under 25','25–100','100–500','500+','Not sure']},
+    {s:'Leads', k:'marketing_owner', t:'one', q:'Who runs your marketing?', o:['In-house marketer','Agency','Nobody dedicated']},
+    {s:'Leads', k:'marketing_pains', t:'many', none:'None of these', q:'Which of these sound like your marketing?', h:'Tick all that apply.', o:['Not enough leads','Too many leads who aren’t a fit','Leads cost too much','Lead flow is up and down month to month','We rely on referrals and can’t turn up the volume','We don’t know which channel actually works','None of these']},
+
+    {s:'Content', k:'content_frequency', t:'one', q:'How often do you publish content?', o:['Daily','A few times a week','Weekly','A few times a month','Rarely or never']},
+    {s:'Content', k:'content_channels', t:'many', none:'Nowhere yet', q:'Where do you publish?', h:'Tick all that apply.', o:['LinkedIn','YouTube','Instagram','TikTok','X','Email newsletter','Podcast','Blog','Nowhere yet']},
+    {s:'Content', k:'content_owner', t:'one', q:'Who makes your content?', o:['Me','Someone on the team','An agency or freelancer','Nobody']},
+    {s:'Content', k:'content_brings_leads', t:'one', q:'Does your content bring in leads?', o:['Yes, steadily','Some, now and then','Not really','We don’t track it']},
+    {s:'Content', k:'content_pains', t:'many', none:'None of these', q:'Which of these sound like your content?', h:'Tick all that apply.', o:['We don’t create content at all','We post, but it all sounds the same','It takes too long to make','It all depends on me finding the time','We post, but it doesn’t bring in leads','We never know what to make next','None of these']},
+
+    {s:'Operations', k:'crm', t:'one', q:'Which CRM do you use?', o:['HubSpot','GoHighLevel','Salesforce','Pipedrive','Close','Spreadsheets','None','Other']},
+    {s:'Operations', k:'reporting', t:'one', q:'How do you see your numbers today?', o:['Live dashboard','Spreadsheets','I ask the team','We don’t really']},
+    {s:'Operations', k:'ops_pains', t:'many', none:'None of these', other:'ops_pains_other', otherPh:'What else eats your team’s time?', q:'Which of these eat your team’s time?', h:'Tick all that apply.', o:['Pulling reports and numbers','Admin and data entry','Onboarding new clients','Invoicing and chasing payments','Projects slip because nobody’s tracking them','Other','None of these']},
+    {s:'Operations', k:'time_waste_owner', t:'one', q:'Whose time do these problems eat the most?', o:['Mostly my time','Mostly my team’s time','Both','Not sure']},
+    {s:'Operations', k:'manual_process_hours', t:'one', q:'Roughly how many hours a week go into the problems you ticked, across everyone?', o:['Under 5','5–10','10–20','20–40','40+','Not sure']},
+
+    {s:'Where you’re headed', k:'ai_tools', t:'many', none:'None yet', other:'ai_tools_other', otherPh:'Which other AI tools?', q:'Which AI tools do you use now?', h:'Tick all that apply.', o:['Talking to AI (ChatGPT/Claude)','Coding agents (Claude Code/Codex)','Grokbot','Muse','n8n','Other','None yet']},
+    {s:'Where you’re headed', k:'revenue_goal_12_months', t:'one', q:'Where do you want revenue in 12 months?', o:['Under $500k','$500k–1M','$1–2.5M','$2.5–5M','$5–10M','$10–25M','$25–50M','Over $50M','Not sure']},
+    {s:'Where you’re headed', k:'ai_transformation_goal', t:'long', q:'What’s the biggest transformation you want from AI?', h:'Revenue, profit margins, time back. Whatever matters most.', ph:'Say it however you’d say it on the call'}
+  ];
+  var qs = new URLSearchParams(location.search);
+  var email = (qs.get('email') || qs.get('invitee_email') || '').trim().replace(/ /g, '+');
+  if (!email) Q.unshift({s:'First', k:'email', t:'email', q:'What’s the email you booked with?', h:'So your answers land on your booking.', ph:'you@company.com', req:true});
+
+  var KEY = 'rft-prep:' + (email || 'anon');
+  var A = {}; try { A = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  var i = 0, busy = false;
+  var $ = function (s) { return root.querySelector(s); };
+  var body = $('[data-qf-body]'), next = $('[data-qf-next]'), back = $('[data-qf-back]');
+  var hook = root.getAttribute('data-webhook');
+
+  function visible(n) { var x = Q[n]; return !(x.from && (A[x.from] || []).length === 1); } // one lead source picked: it's the top one
+  function step(dir) { var n = i + dir; while (n >= 0 && n < Q.length && !visible(n)) n += dir; return n; }
+  function total() { return Q.filter(function (_, n) { return visible(n); }).length; }
+  function pos() { var c = 0; for (var n = 0; n <= i; n++) if (visible(n)) c++; return c; }
+  function opts(x) { return x.from && (A[x.from] || []).length > 1 ? A[x.from] : x.o; }
+
+  // save() keeps a local copy on every answer; send() posts to GHL only at section ends, on finish and when
+  // the page is closed, so a lead costs a handful of webhook runs, not one per question.
+  var dirty = false;
+  function save(done) {
+    try { localStorage.setItem(KEY, JSON.stringify(A)); } catch (e) {}
+    dirty = true; if (done) send(true);
+  }
+  function send(done) {
+    if (!dirty && !done) return; dirty = false;
+    var em = email || A.email; if (!em) return;
+    var payload = Object.assign({ email: em, prep_complete: !!done }, A);
+    if ((A.lead_sources || []).length === 1) payload.top_lead_source = A.lead_sources[0]; // skipped screen: implied answer
+    if (!hook) { console.info('[prep form] would save →', payload); return; } // mockup: no webhook yet
+    fetch(hook, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(payload), keepalive: true }).catch(function () {});
+  }
+
+  function render() {
+    var x = Q[i], tot = total(), p = pos();
+    $('[data-qf-n]').textContent = p; $('[data-qf-total]').textContent = tot;
+    $('[data-qf-sec]').textContent = x.s;
+    $('[data-qf-fill]').style.width = ((p - 1) / tot * 100) + '%';
+    back.hidden = step(-1) < 0;
+    var h = '<div class="rft-qf-anim"><h3 class="rft-qf-q" id="qf-q">' + x.q + '</h3>' + (x.h ? '<p class="rft-qf-hint">' + x.h + '</p>' : '');
+    if (x.t === 'one' || x.t === 'many') {
+      var sel = [].concat(A[x.k] || []);
+      h += '<div class="rft-qf-opts" role="group" aria-labelledby="qf-q">' + opts(x).map(function (o, n) {
+        // Saved value must match the GHL option exactly: GHL uses straight apostrophes, the display uses curly ones.
+        var val = o.replace(/’/g, "'");
+        return '<button type="button" class="rft-qf-opt" data-v="' + val.replace(/"/g, '&quot;') + '" aria-pressed="' + (sel.indexOf(val) > -1) + '"><span class="k">' + (n < 9 ? n + 1 : '') + '</span>' + o + '</button>';
+      }).join('') + '</div>';
+      if (x.other) h += '<input class="rft-qf-in rft-qf-other" type="text" placeholder="' + x.otherPh + '" value="' + (A[x.other] || '').replace(/"/g, '&quot;') + '" aria-label="' + x.otherPh + '"' + (sel.indexOf('Other') > -1 ? '' : ' hidden') + '>';
+    } else {
+      var v = (A[x.k] || '').replace(/"/g, '&quot;');
+      h += x.t === 'long'
+        ? '<textarea class="rft-qf-in" rows="4" placeholder="' + x.ph + '" aria-labelledby="qf-q">' + (A[x.k] || '') + '</textarea>'
+        : '<input class="rft-qf-in" type="' + (x.t === 'email' ? 'email' : x.t === 'url' ? 'url' : 'text') + '" placeholder="' + x.ph + '" value="' + v + '" aria-labelledby="qf-q"' + (x.t === 'email' ? ' autocomplete="email"' : x.t === 'url' ? ' autocomplete="url" inputmode="url" autocapitalize="off"' : '') + '>';
+      h += '<p class="rft-qf-err" hidden></p>';
+    }
+    body.innerHTML = h + '</div>';
+    next.innerHTML = (step(1) >= Q.length ? 'Finish' : 'Next') + ' <span aria-hidden="true">→</span>';
+    next.hidden = x.t === 'one' && !(x.k in A); // single-choice auto-advances; Next only shows when revisiting an answered one
+    gate();
+    var inp = body.querySelector('.rft-qf-in'); if (inp) { inp.addEventListener('input', gate); if (root.dataset.focus) inp.focus(); }
+  }
+
+  // No skipping: Next stays disabled until the question has an answer ("Not sure" options cover unknowns).
+  function gate() {
+    var x = Q[i], inp = body.querySelector('.rft-qf-in');
+    if (x.t === 'many') next.disabled = !body.querySelector('[aria-pressed="true"]') || (inp && !inp.hidden && !inp.value.trim());
+    else next.disabled = inp ? !inp.value.trim() : false;
+  }
+
+  function go(dir) {
+    var n = step(dir);
+    if (n >= Q.length) return finish();
+    if (n < 0) return;
+    if (Q[n].s !== Q[i].s) send(false); // section boundary
+    i = n; root.dataset.focus = '1'; render();
+  }
+
+  function commitInput() {
+    var x = Q[i], inp = body.querySelector('.rft-qf-in'); if (!inp) return true;
+    var v = inp.value.trim();
+    if (x.t === 'many') { if (x.other) { if (!inp.hidden && v) A[x.other] = v; else delete A[x.other]; } return true; }
+    if (x.t === 'email') {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { var e = body.querySelector('.rft-qf-err'); e.textContent = 'Enter the email you booked with.'; e.hidden = false; inp.focus(); return false; }
+      A.email = v; KEY = 'rft-prep:' + v;
+    } else if (x.t === 'url' && v) {
+      if (!/^[^\s.]+\.[^\s]{2,}$/.test(v.replace(/^https?:\/\//i, ''))) { var u = body.querySelector('.rft-qf-err'); u.textContent = 'That doesn’t look like a website. Try yourcompany.com.'; u.hidden = false; inp.focus(); return false; }
+      A[x.k] = /^https?:\/\//i.test(v) ? v : 'https://' + v;
+    } else if (v) A[x.k] = v; else delete A[x.k];
+    return true;
+  }
+
+  function finish() {
+    save(true);
+    $('[data-qf-fill]').style.width = '100%';
+    $('[data-qf-n]').textContent = total();
+    root.querySelector('.rft-qf-foot').remove();
+    body.innerHTML = '<div class="rft-qf-done rft-qf-anim"><span class="ck" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+      '<h3 class="rft-qf-q">That’s everything. Thank you.</h3><p class="rft-p">This makes your audit a lot sharper. We’ll go through it before the call, so we can spend the hour on what matters most.</p></div>';
+  }
+
+  body.addEventListener('click', function (e) {
+    var b = e.target.closest('.rft-qf-opt'); if (!b || busy) return;
+    var x = Q[i], v = b.getAttribute('data-v');
+    if (x.t === 'one') {
+      A[x.k] = v; body.querySelectorAll('.rft-qf-opt').forEach(function (o) { o.setAttribute('aria-pressed', o === b); });
+      save(); busy = true; setTimeout(function () { busy = false; go(1); }, 260); // brief beat so the pick registers
+    } else {
+      var cur = [].concat(A[x.k] || []), at = cur.indexOf(v), none = x.none && x.none.replace(/’/g, "'");
+      if (at > -1) cur.splice(at, 1);
+      else if (v === none) cur = [v];                                   // "None of these" clears the other picks
+      else { cur = cur.filter(function (c) { return c !== none; }); cur.push(v); } // a real pick clears "None"
+      if (cur.length) A[x.k] = cur; else delete A[x.k];
+      body.querySelectorAll('.rft-qf-opt').forEach(function (o) { o.setAttribute('aria-pressed', cur.indexOf(o.getAttribute('data-v')) > -1); });
+      var ob = body.querySelector('.rft-qf-other');
+      if (ob) { ob.hidden = cur.indexOf('Other') === -1; if (!ob.hidden && v === 'Other') ob.focus(); }
+      gate(); save();
+    }
+  });
+  next.addEventListener('click', function () { if (commitInput()) { save(); go(1); } });
+  back.addEventListener('click', function () { commitInput(); go(-1); });
+  root.addEventListener('keydown', function (e) {
+    var x = Q[i];
+    if (e.key === 'Enter' && !(x.t === 'long' && !e.metaKey && !e.ctrlKey) && e.target.tagName !== 'BUTTON') { e.preventDefault(); next.click(); }
+    if ((x.t === 'one' || x.t === 'many') && /^[1-9]$/.test(e.key) && !/INPUT|TEXTAREA/.test(e.target.tagName)) {
+      var o = body.querySelectorAll('.rft-qf-opt')[+e.key - 1]; if (o && !o.disabled) o.click();
+    }
+  });
+
+  addEventListener('pagehide', function () { send(false); });
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') send(false); });
+
+  // resume where they left off (same browser), else start at the top
+  for (var n = 0; n < Q.length; n++) { if (!(Q[n].k in A) && visible(n)) { i = n; break; } i = n; }
+  if (Q.every(function (x, n) { return !visible(n) || x.k in A; })) i = 0;
+  render();
+})();
+</script>
+</body>
+</html>

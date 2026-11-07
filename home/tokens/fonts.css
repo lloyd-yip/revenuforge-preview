@@ -1,0 +1,5 @@
+/* RevenuForge webfonts — Archivo (brand) + IBM Plex Mono (instrument voice).
+   Archivo loads as the variable font (width 62–125%, weight 100–900) so the web
+   environment's condensed display (font-stretch:78%) renders from the same family.
+   Self-host by replacing this import with local @font-face rules in ../assets/fonts/. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
